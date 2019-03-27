@@ -47,8 +47,8 @@ legend('Raw','4O poly','8O poly');
 figure(4)
 semilogy(V,I_N)
 hold on;
-semilogy(V,polyval(P_4,V));
-semilogy(V,polyval(P_8,V));
+semilogy(V,abs(polyval(P_4,V)));
+semilogy(V,abs(polyval(P_8,V)));
 hold off;
 legend('Raw','4O poly','8O poly');
 
@@ -66,7 +66,7 @@ ff_a = fit(V',I_N',fo_a);
 If_a = ff_a(x);
 
 %b
-fo_b=fittype('A.*(exp(1.2/0.025.*x)-1)+B.*x-C.*(exp(-1.2/0.025.*(x+D)-1))');
+fo_b=fittype('A.*(exp(1.2/0.025.*x)-1)+B.*x-C.*(exp(-1.2/0.025.*(x+1.3)-1))');
 ff_b = fit(V',I_N',fo_b);
 If_b = ff_b(x);
 
@@ -77,7 +77,19 @@ If_c = ff_c(x);
 
 figure(5)
 hold on;
-plot(V,I_N)
+plot(V,I_N);
+plot(x,If_a);
+plot(x,If_b);
 plot(x,If_c);
 hold off;
-legend('Raw','All4');
+legend('Raw','AC','ABC','ABCD');
+
+
+figure(6)
+semilogy(V,I_N);
+hold on;
+semilogy(x,abs(If_a));
+semilogy(x,abs(If_b));
+semilogy(x,abs(If_c));
+hold off;
+legend('Raw','AC','ABC','ABCD');
